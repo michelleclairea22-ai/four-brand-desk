@@ -84,3 +84,5 @@ input.edit{width:100%}.row .edit{flex:1}
 code{background:var(--panel2);padding:1px 5px;border-radius:4px}
 @media(max-width:1100px){.idea-grid,.prog-grid{grid-template-columns:repeat(2,1fr)}.two-col,.m-grid{grid-template-columns:1fr}}
 @media(max-width:760px){.layout{grid-template-columns:1fr}.sidenav{flex-direction:row;flex-wrap:wrap}.nav-legend,.nav-foot{display:none}.idea-grid,.prog-grid,.mix{grid-template-columns:1fr 1fr}}
+
+.logo-img{width:40px;height:40px;border-radius:10px;flex:0 0 auto;object-fit:cover;}
