@@ -5,6 +5,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Four-Brand Content Desk</title>
 <link rel="stylesheet" href="css/style.css">
+<link rel="manifest" href="manifest.webmanifest">
+<meta name="theme-color" content="#14213d">
+<link rel="icon" href="icons/icon-192.png">
 </head>
 <body>
 <header class="topbar">
@@ -16,6 +19,7 @@
     <label class="month-pick">Bulan
       <select id="monthSelect" title="Pilih bulan"></select>
     </label>
+    <button class="btn ghost" id="installBtn" hidden title="Install dashboard sebagai app desktop">⬇ Install</button>
     <button class="btn ghost" id="addMonthBtn" title="Cipta skeleton bulan baru (localStorage)">+ Tambah bulan</button>
     <button class="btn ghost" id="undoBtn" title="Undo Posted terakhir">↶ Undo</button>
     <button class="btn ghost" id="exportBtn" title="Export semua data desk:* ke .json">Export JSON</button>
@@ -50,5 +54,12 @@
 <script src="js/config.js"></script>
 <script src="js/store.js"></script>
 <script src="js/app.js"></script>
+<script>
+if ('serviceWorker' in navigator && location.protocol.startsWith('http')) navigator.serviceWorker.register('sw.js');
+let deferredInstall; const ib=document.getElementById('installBtn');
+window.addEventListener('beforeinstallprompt', e => { e.preventDefault(); deferredInstall=e; ib.hidden=false; });
+ib.addEventListener('click', async () => { if(!deferredInstall) return; deferredInstall.prompt(); await deferredInstall.userChoice; deferredInstall=null; ib.hidden=true; });
+window.addEventListener('appinstalled', () => { ib.hidden=true; });
+</script>
 </body>
 </html>
