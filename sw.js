@@ -1,5 +1,5 @@
 // Network-first: sentiasa ambil versi terbaru bila online, guna cache bila offline.
-const CACHE = 'desk-v1';
+const CACHE = 'desk-v2';
 self.addEventListener('install', e => self.skipWaiting());
 self.addEventListener('activate', e => e.waitUntil(self.clients.claim()));
 self.addEventListener('fetch', e => {
