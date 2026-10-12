@@ -262,7 +262,7 @@
     r.onload = () => {
       try {
         const obj = JSON.parse(r.result);
-        if (!confirm(`Import ${Object.keys(obj.data || {}).length} key dari ${f.name}? Key yang sama akan ditimpa.`)) return;
+        if (!confirm(`Import ${Object.keys(obj.data || {}).length} key dari ${f.name}? Data akan digabung: cuma kad dalam fail dikemas kini, kad lain tak disentuh.`)) return;
         const n = Store.importAll(obj); toast(`Import siap: ${n} key.`);
         const months = allMonths(); switchMonth(months.includes(S.month) ? S.month : months[0]);
       } catch (err) { alert('Import gagal: ' + err.message); }

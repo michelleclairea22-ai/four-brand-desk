@@ -26,7 +26,16 @@
     importAll(obj) {
       if (!obj || obj.app !== 'four-brand-desk' || typeof obj.data !== 'object') throw new Error('Fail bukan backup Four-Brand Desk');
       let n = 0;
-      for (const [k, v] of Object.entries(obj.data)) { if (k.startsWith(P) && typeof v === 'string') { localStorage.setItem(k, v); n++; } }
+      // Gabung, bukan timpa: untuk key berbentuk objek (status, captions, platforms) cuma kad dalam fail dikemas kini; kad lain kekal.
+      const isObj = x => x && typeof x === 'object' && !Array.isArray(x);
+      for (const [k, v] of Object.entries(obj.data)) {
+        if (!k.startsWith(P) || typeof v !== 'string') continue;
+        const cur = localStorage.getItem(k);
+        if (cur == null) { localStorage.setItem(k, v); n++; continue; }
+        let a, b; try { a = JSON.parse(cur); b = JSON.parse(v); } catch (e) { continue; }
+        if (isObj(a) && isObj(b)) { localStorage.setItem(k, JSON.stringify(Object.assign(a, b))); n++; }
+        // Nilai bukan objek (undo, bulan terakhir, tema) yang dah ada tak ditimpa.
+      }
       return n;
     },
   };
